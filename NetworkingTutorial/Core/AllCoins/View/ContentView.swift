@@ -11,7 +11,7 @@ struct ContentView: View {
     @StateObject var coinsViewModel = CoinsViewModel()
     var body: some View {
         VStack {
-            Text("\(coinsViewModel.coins): \(coinsViewModel.price)")
+            Text("\(coinsViewModel.coin): \(coinsViewModel.price)")
         }
         .padding()
     }
