@@ -11,6 +11,7 @@
 		69B46D2C2B05CB2800B7D310 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B46D2B2B05CB2800B7D310 /* ContentView.swift */; };
 		69B46D2E2B05CB2900B7D310 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69B46D2D2B05CB2900B7D310 /* Assets.xcassets */; };
 		69B46D322B05CB2900B7D310 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69B46D312B05CB2900B7D310 /* Preview Assets.xcassets */; };
+		69B46D412B05D20000B7D310 /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B46D402B05D20000B7D310 /* CoinsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		69B46D2D2B05CB2900B7D310 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69B46D2F2B05CB2900B7D310 /* NetworkingTutorial.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NetworkingTutorial.entitlements; sourceTree = "<group>"; };
 		69B46D312B05CB2900B7D310 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		69B46D402B05D20000B7D310 /* CoinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +54,8 @@
 		69B46D282B05CB2800B7D310 /* NetworkingTutorial */ = {
 			isa = PBXGroup;
 			children = (
-				69B46D292B05CB2800B7D310 /* NetworkingTutorialApp.swift */,
-				69B46D2B2B05CB2800B7D310 /* ContentView.swift */,
+				69B46D382B05CC1800B7D310 /* App */,
+				69B46D392B05CC2400B7D310 /* Core */,
 				69B46D2D2B05CB2900B7D310 /* Assets.xcassets */,
 				69B46D2F2B05CB2900B7D310 /* NetworkingTutorial.entitlements */,
 				69B46D302B05CB2900B7D310 /* Preview Content */,
@@ -67,6 +69,55 @@
 				69B46D312B05CB2900B7D310 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		69B46D382B05CC1800B7D310 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				69B46D292B05CB2800B7D310 /* NetworkingTutorialApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		69B46D392B05CC2400B7D310 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				69B46D3F2B05CC6F00B7D310 /* AllCoins */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		69B46D3C2B05CC3000B7D310 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		69B46D3D2B05CC5900B7D310 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				69B46D2B2B05CB2800B7D310 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		69B46D3E2B05CC6400B7D310 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				69B46D402B05D20000B7D310 /* CoinsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		69B46D3F2B05CC6F00B7D310 /* AllCoins */ = {
+			isa = PBXGroup;
+			children = (
+				69B46D3C2B05CC3000B7D310 /* Model */,
+				69B46D3D2B05CC5900B7D310 /* View */,
+				69B46D3E2B05CC6400B7D310 /* ViewModel */,
+			);
+			path = AllCoins;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B46D2C2B05CB2800B7D310 /* ContentView.swift in Sources */,
+				69B46D412B05D20000B7D310 /* CoinsViewModel.swift in Sources */,
 				69B46D2A2B05CB2800B7D310 /* NetworkingTutorialApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
