@@ -23,6 +23,6 @@ class CoinsViewModel: ObservableObject {
         URLSession.shared.dataTask(with: url) { data, response, error in
             print("Did recieved data: \(data)")
         }.resume()
-        print("Request fetched!") //Will be printed before the "Did recieved data:" since API request takes time in completion Handler.
+        print("Request fetched!") // Will be printed before the "Did recieved data:" since API request takes time.
     }
 }
