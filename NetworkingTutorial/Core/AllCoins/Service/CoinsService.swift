@@ -11,20 +11,39 @@ import Foundation
 class CoinsService {
     private let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h&locale=en"
 
-    /// This way we have more robust way to handle success and error case instead of opional value. 
-    func fetchCoinsWithResult(completion: @escaping(Result<[Coin], Error>) -> Void) {
+    /// This way we have more robust way to handle success and error case instead of opional value.
+    func fetchCoinsWithResult(completion: @escaping(Result<[Coin], CoinAPIError>) -> Void) {
         guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
+        URLSession.shared.dataTask(with: url) { data, response, error1 in
+            if let error1 = error1 {
+                completion(.failure(.unknownError(error: error1)))
             }
-            guard let data = data else { return }
-            /// We will decode the data in our required format that is Coin model
-            guard let coins = try? JSONDecoder().decode([Coin].self, from: data) else {
-                print("Decode Failed")
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.requestFailed(description: "Request failed")))
                 return
             }
-            completion(.success(coins))
+            
+            guard httpResponse.statusCode == 200 else {
+                completion(.failure(.invalideStatus(statusCode: httpResponse.statusCode)))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.invalidData))
+                return
+            }
+            
+            /// Now instead of guard statement we are going to use do-catch block.
+            do {
+                /// We will decode the data in our required format that is Coin model
+                let coins = try JSONDecoder().decode([Coin].self, from: data)
+                completion(.success(coins))
+            } catch {
+                completion(.failure(.jsonParsingFailure))
+                print("DEBUG: Failed json decoding with error: \(error)") /// This error is provided by the catch block. This is like writing "catch let error".
+                ///but swift does it for us.
+            }
         }.resume()
     }
 
