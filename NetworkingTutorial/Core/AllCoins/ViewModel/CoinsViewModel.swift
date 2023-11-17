@@ -8,23 +8,18 @@
 import Foundation
 
 class CoinsViewModel: ObservableObject {
-    @Published var coin = ""
-    @Published var price = ""
-    @Published var errorMessage: String?
+    @Published var coins = [Coin]()
     
     let service = CoinsService() /// Service class will be now responsible for the communication with the API and provide data to ViewModel. 
 
     init() {
-        fetchCoin(coin: "ethereum")
+        fetchCoins()
     }
     
-    func fetchCoin(coin: String) {
-        service.fetchPrice(coin: coin) { price in
-            /// Now we can use main queue only for the variables which are responsible for the UI updates
-            /// and not the full logic which can be heavy and make UI load slower. 
+    func fetchCoins() {
+        service.fetchCoins { coins in
             DispatchQueue.main.async {
-                self.coin = coin.capitalized
-                self.price = "₹ \(price)"
+                self.coins = coins
             }
         }
     }

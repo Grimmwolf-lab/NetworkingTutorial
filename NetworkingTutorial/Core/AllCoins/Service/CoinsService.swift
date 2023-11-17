@@ -9,6 +9,21 @@ import Foundation
 
 /// Class responsible to communicate with DataSource (API) and provide the required data to ViewModel.
 class CoinsService {
+    private let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h&locale=en"
+
+    func fetchCoins(completion: @escaping([Coin]) -> Void) {
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else { return }
+            /// We will decode the data in our required format that is Coin model
+            guard let coins = try? JSONDecoder().decode([Coin].self, from: data) else {
+                print("Decode Failed")
+                return
+            }
+            completion(coins)
+        }.resume()
+    }
+
     func fetchPrice(coin: String, completion: @escaping(Double) -> Void) {
         let urlString = "https://api.coingecko.com/api/v3/simple/price?ids=\(coin)&vs_currencies=inr"
         guard let url = URL(string: urlString) else { return }
