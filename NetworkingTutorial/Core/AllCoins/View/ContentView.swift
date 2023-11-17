@@ -22,6 +22,10 @@ struct ContentView: View {
                     }
                 }.font(.footnote)
             }
+        }.overlay {
+            if let error = coinsViewModel.errorMessage {
+                Text(error)
+            }
         }
     }
 }

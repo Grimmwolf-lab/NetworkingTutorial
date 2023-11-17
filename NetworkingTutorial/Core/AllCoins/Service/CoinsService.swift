@@ -11,16 +11,36 @@ import Foundation
 class CoinsService {
     private let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h&locale=en"
 
-    func fetchCoins(completion: @escaping([Coin]) -> Void) {
+    /// This way we have more robust way to handle success and error case instead of opional value. 
+    func fetchCoinsWithResult(completion: @escaping(Result<[Coin], Error>) -> Void) {
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+            }
             guard let data = data else { return }
             /// We will decode the data in our required format that is Coin model
             guard let coins = try? JSONDecoder().decode([Coin].self, from: data) else {
                 print("Decode Failed")
                 return
             }
-            completion(coins)
+            completion(.success(coins))
+        }.resume()
+    }
+
+    func fetchCoins(completion: @escaping([Coin]?, Error?) -> Void) {
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(nil, error)
+            }
+            guard let data = data else { return }
+            /// We will decode the data in our required format that is Coin model
+            guard let coins = try? JSONDecoder().decode([Coin].self, from: data) else {
+                print("Decode Failed")
+                return
+            }
+            completion(coins, nil)
         }.resume()
     }
 
