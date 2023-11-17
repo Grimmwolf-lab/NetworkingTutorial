@@ -18,13 +18,15 @@ class CoinsViewModel: ObservableObject {
     }
 
     func fetchCoinsWithResult() {
-        service.fetchCoinsWithResult { result in
+        /// We are going to use "weak self" inside a closure to avoid strong refrence and make our process more smoother.
+        /// Keeping a strong refrence even though the view is killed, will make the app freeze.
+        service.fetchCoinsWithResult { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let coins):
-                    self.coins = coins
+                    self?.coins = coins /// Since we are using weak self we have to use optional chaining. 
                 case .failure(let error):
-                    self.errorMessage = error.localizedDescription
+                    self?.errorMessage = error.localizedDescription
                 }
             }
         }
