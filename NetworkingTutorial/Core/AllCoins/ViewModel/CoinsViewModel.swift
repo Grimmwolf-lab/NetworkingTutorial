@@ -14,9 +14,14 @@ class CoinsViewModel: ObservableObject {
     let service = CoinsService() /// Service class will be now responsible for the communication with the API and provide data to ViewModel. 
 
     init() {
-        fetchCoinsWithResult()
+        /// Task is used so that we don't have to make each any every method async whenever an await method is called inside it.
+        Task { try await fetchCoinsWithAsync()}
     }
 
+    func fetchCoinsWithAsync() async throws {
+        self.coins = try await service.fetchCoins()
+    }
+    
     func fetchCoinsWithResult() {
         /// We are going to use "weak self" inside a closure to avoid strong refrence and make our process more smoother.
         /// Keeping a strong refrence even though the view is killed, will make the app freeze.
