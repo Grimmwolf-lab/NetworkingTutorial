@@ -10,9 +10,17 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var coinsViewModel = CoinsViewModel()
     var body: some View {
-        List {
+        List { 
             ForEach(coinsViewModel.coins) { coin in
-                Text(coin.name)
+                HStack(spacing: 12) {
+                    Text("\(coin.marketCapRank)")
+                        .foregroundColor(.gray)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(coin.name)
+                            .fontWeight(.semibold)
+                        Text(coin.symbol.uppercased())
+                    }
+                }.font(.footnote)
             }
         }
     }
