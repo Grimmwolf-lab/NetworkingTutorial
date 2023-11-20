@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import Swift
 
 class CoinsViewModel: ObservableObject {
     @Published var coins = [Coin]()
@@ -19,7 +21,10 @@ class CoinsViewModel: ObservableObject {
     }
 
     func fetchCoinsWithAsync() async throws {
-        self.coins = try await service.fetchCoins()
+        let fetchedCoins = try await service.fetchCoins()
+        DispatchQueue.main.async {
+            self.coins = fetchedCoins
+        }
     }
     
     func fetchCoinsWithResult() {
@@ -36,17 +41,4 @@ class CoinsViewModel: ObservableObject {
             }
         }
     }
-
-//    func fetchCoins() {
-//        service.fetchCoins { coins, error in
-//            DispatchQueue.main.async {
-//                if let error = error {
-//                    self.errorMessage = error.localizedDescription
-//                    return
-//                }
-//                guard let coins = coins else { return }
-//                self.coins = coins
-//            }
-//        }
-//    }
 }

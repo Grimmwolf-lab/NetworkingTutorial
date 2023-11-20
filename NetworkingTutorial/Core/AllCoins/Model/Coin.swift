@@ -16,9 +16,10 @@ struct Coin: Codable, Identifiable {
     let name: String
     let currentPrice: Double
     let marketCapRank: Int
+    let image: URL
     
     enum CodingKeys: String, CodingKey {
-        case id, symbol, name
+        case id, symbol, name, image
         case currentPrice = "current_price" /// assigning the correct JSON key name to our own camel cased variable.
         case marketCapRank = "market_cap_rank"
     }

@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 /// Class responsible to communicate with DataSource (API) and provide the required data to ViewModel.
 class CoinsService {
-    private let urlString = "https://ap.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h&locale=en"
+    private let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=500&page=1&sparkline=false&price_change_percentage=24h&locale=en"
      
     /// Making use of async throws has made the fetch method more readable and efficient.
     func fetchCoins() async throws -> [Coin]{

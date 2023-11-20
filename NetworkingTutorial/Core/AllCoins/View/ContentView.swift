@@ -15,12 +15,25 @@ struct ContentView: View {
                 HStack(spacing: 12) {
                     Text("\(coin.marketCapRank)")
                         .foregroundColor(.gray)
+                    AsyncImage(
+                        url: coin.image,
+                        content: { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30)
+                        },
+                        placeholder: {
+                            Image(systemName: "photo")
+                        }
+                    )
+                        
                     VStack(alignment: .leading, spacing: 2) {
                         Text(coin.name)
                             .fontWeight(.semibold)
                         Text(coin.symbol.uppercased())
                     }
-                }.font(.footnote)
+                }
+                .font(.footnote)
             }
         }.overlay {
             if let error = coinsViewModel.errorMessage {
